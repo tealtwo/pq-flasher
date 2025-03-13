@@ -19,7 +19,7 @@ class MessageTimeoutError(TimeoutError):
 
 
 class TP20Transport:
-    def __init__(self, panda: Panda, module: int, bus: int = 0, timeout: float = 0.1, debug: bool = False):
+    def __init__(self, panda: Panda, module: int, bus: int = 0, timeout: float = 0.1, debug: bool = True):
         """Create TP20Transport object and open a channel"""
         self.panda = panda
         self.bus = bus
@@ -49,7 +49,7 @@ class TP20Transport:
                 if a == addr:
                     return dat
 
-            for a, _, dat, bus in self.panda.can_recv():
+            for a, dat, bus in self.panda.can_recv():
                 if a != addr:
                     continue
 
@@ -68,7 +68,7 @@ class TP20Transport:
 
         if self.debug:
             print(f"TX: {hex(addr)} - {dat.hex()}")
-        self.panda.can_send(addr, dat, self.bus, int(self.timeout * 1000))
+        self.panda.can_send(addr, dat, self.bus)
         time.sleep(self.time_between_packets)
 
     def open_channel(self, module: int):
