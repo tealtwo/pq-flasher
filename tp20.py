@@ -19,7 +19,7 @@ class MessageTimeoutError(TimeoutError):
 
 
 class TP20Transport:
-    def __init__(self, panda: Panda, module: int, bus: int = 0, timeout: float = 0.1, debug: bool = True):
+    def __init__(self, panda: Panda, module: int, bus: int = 0, timeout: float = 0.1, debug: bool = False):
         """Create TP20Transport object and open a channel"""
         self.panda = panda
         self.bus = bus
