@@ -1,3 +1,4 @@
+## This is a FORK of a Willem's orginial PQ Flasher modified to work with newer versions of AGNOS/openpilot. All credit for the patch go to [Willem Melching](https://blog.willemmelching.nl)
 ## VW PQ35 EPS flasher
 This repository conatains tools to reflash a PQ35 VW EPS, it also contains some useful libraries to deal with the TP 2.0 transport layer and abstracts away the KWP2000 diagnsotics protocol.
 
