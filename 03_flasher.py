@@ -29,6 +29,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--bus", default=0, type=int, help="CAN bus number to use")
     parser.add_argument("--input", required=True, help="input to flash")
+    parser.add_argument("--skip-patch-check", action="store_true", help="skip the 'Ende' patch check (useful for recovery)")
     parser.add_argument("--start-address", default=0x5E000, type=int, help="start address")
     parser.add_argument("--end-address", default=0x5EFFF, type=int, help="end address (inclusive)")
     args = parser.parse_args()
@@ -38,7 +39,9 @@ if __name__ == "__main__":
 
     assert args.start_address < args.end_address
     assert args.end_address < len(input_fw_s)
-    assert input_fw_s[-4:] != b"Ende", "Firmware is not patched"
+    
+    if not args.skip_patch_check:
+        assert input_fw_s[-4:] != b"Ende", "Firmware is not patched"
 
     print("\n[READY TO FLASH]")
     print("WARNING! USE AT YOUR OWN RISK! THIS COULD BREAK YOUR ECU AND REQUIRE REPLACEMENT!")

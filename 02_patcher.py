@@ -18,6 +18,18 @@ patches = {
         (0x0005D289, b"\x64", b"\x00"),  # Disengage countdown
         (0x0005D2FA, b"\x14", b"\x00"),  # Min speed
         (0x0005FFFC, b"Ende", b"\xff\xff\xff\xff"),  # End of FW marker
+    ],
+    "3001": [
+        (0x0005D7A0, b"8J0909144J \x003001", None),  # Software number and version
+        (0x0005D280, b"\x64", b"\x00"),  # Timebomb 1
+        (0x0005D284, b"\x14", b"\x00"),  # Min speed 1
+        (0x0005D286, b"\x64", b"\x00"),  # Timebomb 2
+        (0x0005D28C, b"\x14", b"\x00"),  # Min speed 2
+    ],
+    "3305": [
+        (0x0005D824, b"8J0909144P \x003305", None),  # Software number and version
+        (0x0005D285, b"\x64", b"\x00"),  # Timebomb
+        (0x0005D2F6, b"\x14", b"\x00"),  # Min speed
     ]
 }
 
@@ -27,6 +39,16 @@ checksums = {
         (0x05EFFC, 0x5E000, 0x5EFFC),
     ],
     "3501": [
+        (0x05DFFC, 0x5C000, 0x5CFFF),
+        (0x05DFFE, 0x5CFFF, 0x5DFFC),
+        (0x05EFFE, 0x5E000, 0x5EFFE),
+    ],
+    "3001": [
+        (0x05DFFC, 0x5C000, 0x5CFFF),
+        (0x05DFFE, 0x5CFFF, 0x5DFFC),
+        (0x05EFFE, 0x5E000, 0x5EFFE),
+    ],
+    "3305": [
         (0x05DFFC, 0x5C000, 0x5CFFF),
         (0x05DFFE, 0x5CFFF, 0x5DFFC),
         (0x05EFFE, 0x5E000, 0x5EFFE),
@@ -60,7 +82,7 @@ if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument("--input", required=True, help="input file to patch")
     parser.add_argument("--output", required=True, help="output file")
-    parser.add_argument("--version", default="2501", const="2501", nargs="?", choices=["2501", "3501"])
+    parser.add_argument("--version", default="2501", const="2501", nargs="?", choices=["2501", "3001", "3305", "3501"])
     args = parser.parse_args()
 
     with open(args.input, "rb") as input_fw:
