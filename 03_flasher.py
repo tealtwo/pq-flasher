@@ -51,7 +51,7 @@ if __name__ == "__main__":
 
     p = Panda()
     p.can_clear(0xFFFF)
-    p.set_safety_mode(Panda.SAFETY_ALLOUTPUT)
+    p.set_safety_mode(CarParams.SafetyModel.allOutput)
 
     print("Connecting...")
     tp20 = TP20Transport(p, 0x9, bus=args.bus)
