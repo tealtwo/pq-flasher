@@ -5,6 +5,7 @@ import sys
 import struct
 from argparse import ArgumentParser
 
+from opendbc.car.structs import CarParams
 from panda import Panda  # type: ignore
 from tp20 import TP20Transport
 from kwp2000 import ACCESS_TYPE, ROUTINE_CONTROL_TYPE, KWP2000Client, SESSION_TYPE, ECU_IDENTIFICATION_TYPE
