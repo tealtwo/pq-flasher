@@ -7,9 +7,12 @@ from tp20 import TP20Transport
 from kwp2000 import KWP2000Client, ECU_IDENTIFICATION_TYPE
 
 try:
-    from panda.ccp import CcpClient, BYTE_ORDER
+    from opendbc.car.ccp import CcpClient, BYTE_ORDER
 except ImportError:
-    from panda.python.ccp import CcpClient, BYTE_ORDER
+    try:
+        from panda.ccp import CcpClient, BYTE_ORDER
+    except ImportError:
+        from panda.python.ccp import CcpClient, BYTE_ORDER
 
 CHUNK_SIZE = 4
 
