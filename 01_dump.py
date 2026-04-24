@@ -3,6 +3,7 @@ import tqdm
 from argparse import ArgumentParser
 
 from panda import Panda
+from opendbc.car.structs import CarParams
 from tp20 import TP20Transport
 from kwp2000 import KWP2000Client, ECU_IDENTIFICATION_TYPE
 
@@ -26,7 +27,7 @@ if __name__ == "__main__":
 
     p = Panda()
     p.can_clear(0xFFFF)
-    p.set_safety_mode(Panda.SAFETY_ALLOUTPUT)
+    p.set_safety_mode(CarParams.SafetyModel.allOutput)
 
     print("Connecting using KWP2000...")
     tp20 = TP20Transport(p, 0x9, bus=args.bus)
