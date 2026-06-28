@@ -16,10 +16,10 @@ except ImportError:
         from panda.python.ccp import CcpClient, BYTE_ORDER
 
 CHUNK_SIZE = 4
+BUS = 1
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--bus", default=0, type=int, help="CAN bus number to use")
     parser.add_argument("--start-address", default=0, type=int, help="start address")
     parser.add_argument("--end-address", default=0x5FFFF, type=int, help="end address (inclusive)")
     parser.add_argument("--output", required=True, help="output file")
@@ -29,8 +29,8 @@ if __name__ == "__main__":
     p.can_clear(0xFFFF)
     p.set_safety_mode(CarParams.SafetyModel.allOutput)
 
-    print("Connecting using KWP2000...")
-    tp20 = TP20Transport(p, 0x9, bus=args.bus)
+    print(f"Connecting using KWP2000 on bus {BUS}...")
+    tp20 = TP20Transport(p, 0x9, bus=BUS)
     kwp_client = KWP2000Client(tp20)
 
     print("Reading ecu identification & flash status")
@@ -40,8 +40,8 @@ if __name__ == "__main__":
     status = kwp_client.read_ecu_identifcation(ECU_IDENTIFICATION_TYPE.STATUS_FLASH)
     print("Flash status", status)
 
-    print("\nConnecting using CCP...")
-    client = CcpClient(p, 1746, 1747, byte_order=BYTE_ORDER.LITTLE_ENDIAN, bus=args.bus)
+    print(f"\nConnecting using CCP on bus {BUS}...")
+    client = CcpClient(p, 1746, 1747, byte_order=BYTE_ORDER.LITTLE_ENDIAN, bus=BUS)
     client.connect(0x0)
 
     progress = tqdm.tqdm(total=args.end_address - args.start_address)
